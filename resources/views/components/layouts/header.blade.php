@@ -1,4 +1,4 @@
-<x-layout.app title="admin" :showLoader="false">
+<x-layouts.app title="admin" :showLoader="false">
     <!-- Header -->
 <header class="fixed top-0 left-0 right-0 h-16 bg-gray-800 border-b border-gray-700 flex items-center px-4 z-30">
     
@@ -27,4 +27,4 @@
         </button>
     </div>
 </header>
-</x-layout.app>
+</x-layouts.app>
