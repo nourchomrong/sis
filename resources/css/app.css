@@ -10,9 +10,8 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 @import "tailwindcss";
-@plugin "flyonui";
-@import "./node_modules/flyonui/variants.css"; 
 
-@source "./node_modules/flyonui/dist/index.js"; 
+
+
 
 [x-cloak] { display: none !important; }
