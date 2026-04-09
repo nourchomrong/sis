@@ -40,7 +40,8 @@
                                 <x-form.input-textarea label="Address" name="address" :value="$address" />
                                 <x-form.input-text label="Phone" name="phone" :value="$phone" />
                                 <x-form.input-text label="Email" name="email" type="email" :value="$email" />
-                                <x-form.file-upload label="Profile Photo" name="photo" />
+                                <x-file-upload label="Profile Photo" name="photo" :temporary="false" />
+                                
                                     @if ($photo)
                                         <div class="mt-2 relative">
                                             <img src="{{ $photo->temporaryUrl() }}" class="w-24 h-24 rounded object-cover">
@@ -54,6 +55,8 @@
                                             </button>
                                         </div>
                                     @endif
+
+                              
 
                                 <div class="flex justify-end space-x-2 mt-4">
                                     <x-form.button type="submit" color="green" wire:loading.attr="disabled" wire:target="photo,submit">
