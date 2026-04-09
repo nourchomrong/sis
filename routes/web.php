@@ -3,11 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Login;
 
-// Allow unauthenticated Livewire file uploads
-Route::post('/livewire-{id}/upload-file', function () {
-    // This route is handled by Livewire internally
-})->withoutMiddleware(['auth', 'verified']);
-
 Route::get('/', [Login::class, 'index'])->name('login');
 
 Route::get('admin/dashboard', function () {
