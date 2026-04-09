@@ -185,14 +185,20 @@ class Studentform extends Component
         }
 
         // Handle photo record
-        if ($photoPath && $student) {
-            if ($student->photo) {
-                Storage::disk('public')->delete($student->photo->photo_path);
-                $student->photo->update(['photo_path' => $photoPath, 'status' => 'A']);
-            } else {
-                $student->photo()->create(['photo_path' => $photoPath, 'status' => 'A']);
+            if ($photoPath && $student) {
+                if ($student->photo) {
+                    // No need to delete from local disk
+                    $student->photo->update([
+                        'photo_path' => $photoPath,
+                        'status' => 'A'
+                    ]);
+                } else {
+                    $student->photo()->create([
+                        'photo_path' => $photoPath,
+                        'status' => 'A'
+                    ]);
+                }
             }
-        }
 
         $message = $this->isEdit ? 'Student updated successfully!' : 'Student created successfully!';
 
