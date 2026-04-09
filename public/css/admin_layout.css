@@ -1,0 +1,23 @@
+
+ /* Apply to your scrollable wrapper */
+  .hide-scrollbar {
+      -ms-overflow-style: none;  /* IE & Edge */
+      scrollbar-width: none;     /* Firefox */
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+  }
+
+  /* Optional: smooth scrolling inside sidebar */
+  .hide-scrollbar {
+      scroll-behavior: smooth;
+  }
+ .submenu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+  }
+
+  .submenu.open {
+      max-height: 500px; /* adjust based on content */
+  }

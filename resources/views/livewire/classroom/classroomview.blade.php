@@ -1,0 +1,153 @@
+<div>
+
+    <!-- Toast container -->
+    <div x-data="{ show: false, message: '', timeout: null }" x-cloak x-init="
+            window.addEventListener('classroom-created', event => {
+                const payload = event.detail;
+                message =
+                    payload?.message ||
+                    (Array.isArray(payload) ? payload[0]?.message : null) ||
+                    (typeof payload === 'string' ? payload : '');
+                if (!message) return;
+                show = true;
+                if(timeout) clearTimeout(timeout);
+                timeout = setTimeout(() => { show = false; message = '' }, 3000);
+            })
+        " x-show="show" x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 translate-y-2"
+        class="fixed inset-x-0 top-6 flex justify-center z-50 px-4 sm:px-6 pointer-events-none">
+        <div
+            class="bg-green-100 border border-green-400 text-green-700 px-6 py-3 rounded shadow-lg w-full max-w-md text-center pointer-events-auto">
+            <span x-text="message"></span>
+        </div>
+    </div>
+    <x-form.search label="Search Classroom" name="query" placeholder="Type to search..." />
+    <!-- Header + Add button -->
+    <div class="flex justify-end items-center mb-4">
+
+        <button wire:click="$toggle('showClassroomForm')"
+            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+            Add Classrooms
+        </button>
+    </div>
+   
+
+ <div class="relative">
+
+    <!-- TABLE -->
+    <x-table :headers="['Room Name', 'Building', 'Capacity','Detail' ,'Actions']">
+        @forelse($classrooms as $classroom)
+            <tr class="hover:bg-gray-50">
+                <td class="px-4 py-2">{{ $classroom->room_name }}</td>
+                <td class="px-4 py-2">{{ $classroom->building }}</td>
+                <td class="px-4 py-2">{{ $classroom->capacity }}</td>
+
+                <td class="px-4 py-2">
+                    <button wire:click="viewClassroom({{ $classroom->classroom_id }})"
+                        class="bg-gray-500 text-white px-2 py-1 rounded">
+                        View
+                    </button>
+                </td>
+
+                <td class="px-4 py-2 flex gap-2">
+                    <button wire:click="confirmEditClassroom({{ $classroom->classroom_id }})"
+                        class="bg-blue-500 text-white px-2 py-1 rounded">
+                        Edit
+                    </button>
+
+                    <button wire:click="confirmDeleteClassroom({{ $classroom->classroom_id }})"
+                        class="bg-red-500 text-white px-2 py-1 rounded">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="8" class="text-center py-2 text-gray-500">
+                    No data
+                </td>
+            </tr>
+        @endforelse
+    </x-table>
+
+    <!-- 🔥 LOADING OVERLAY (ONLY TABLE) -->
+    <div wire:loading.flex wire:target="query"
+        class="absolute inset-0 z-10 items-center justify-center bg-white bg-opacity-70">
+        
+        <div class="px-4 py-2 bg-white border rounded shadow text-gray-700">
+            Searching...
+        </div>
+    </div>
+
+</div>
+
+    <div class="mt-4">
+        {{ $classrooms->links() }}
+    </div>
+
+    @if($showClassroomDetail && $selectedClassroom)
+         <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+
+            <div class="bg-white p-6 rounded shadow-lg w-full max-w-md">
+
+                <h2 class="text-xl font-bold mb-4">Classroom Detail</h2>
+                <p><strong>Room Name:</strong> {{ $selectedClassroom->room_name }}</p>
+                <p><strong>Building:</strong> {{ $selectedClassroom->building }}</p>
+                <p><strong>Capacity:</strong> {{ $selectedClassroom->capacity }}</p>
+                <p><strong>Created At:</strong> {{ $selectedClassroom->created_at }}</p>
+                <p><strong>Updated At:</strong> {{ $selectedClassroom->updated_at }}</p>
+
+                <div class="mt-4 text-right">
+                    <button wire:click="$set('showClassroomDetail', false)" class="bg-gray-500 text-white px-4 py-2 rounded">
+                        Close
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    @endif
+
+    <!-- Delete Confirmation Modal -->
+    @if($showDeleteConfirm && $classroomToDelete)
+        <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div class="bg-white p-6 rounded shadow-lg w-full max-w-md">
+                <h2 class="text-xl font-bold mb-4 text-red-600">Confirm Delete</h2>
+                <p class="mb-4">Are you sure you want to delete this classroom? This action cannot be undone.</p>
+                <div class="flex justify-end space-x-2">
+                    <button wire:click="cancelDelete" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+                        Cancel
+                    </button>
+                    <button wire:click="deleteClassroom({{ $classroomToDelete }})" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!-- Edit Confirmation Modal -->
+    @if($showEditConfirm && $classroomToEdit)
+        <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div class="bg-white p-6 rounded shadow-lg w-full max-w-md">
+                <h2 class="text-xl font-bold mb-4 text-blue-600">Confirm Edit</h2>
+                <p class="mb-4">Are you sure you want to edit this classroom's information?</p>
+                <div class="flex justify-end space-x-2">
+                    <button wire:click="cancelEdit" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+                        Cancel
+                    </button>
+                    <button wire:click="editClassroomConfirmed({{ $classroomToEdit }})" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        Edit
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!-- Conditionally show the student form -->
+    @if($showClassroomForm)
+        <livewire:classroom.classroomform :classroom-id="$selectedClassroomId" />
+    @endif
+
+</div>
