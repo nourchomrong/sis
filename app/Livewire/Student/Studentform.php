@@ -15,7 +15,6 @@ class Studentform extends Component
     public $isSaving = false;
     public $showModal = true;
     public $student_id = null;
-    public $student_code = null;
     public $isEdit = false;
 
     // Name fields
@@ -86,7 +85,7 @@ class Studentform extends Component
 
         if ($student) {
             $this->student_id = $student->student_id;
-            $this->student_code = $student->student_code;
+            $this->student_code = str_pad($student->student_id, 5, '0', STR_PAD_LEFT);
 
             // Split names into first + last
             $enNames = explode(' ', $student->en_fullname, 2);
@@ -151,7 +150,6 @@ class Studentform extends Component
             $student = Student::find($this->student_id);
 
             $student?->update([
-                'student_code' => $this->student_code,
                 'en_fullname' => $this->en_fullname,
                 'kh_fullname' => $this->kh_fullname,
                 'gender' => $this->gender,
@@ -163,11 +161,7 @@ class Studentform extends Component
             ]);
 
         } else {
-            $nextId = DB::select("SHOW TABLE STATUS LIKE 'students'")[0]->Auto_increment;
-            $studentCode = str_pad($nextId, 5, '0', STR_PAD_LEFT);
-
             $student = Student::create([
-                'student_code' => $studentCode,
                 'en_fullname' => $this->en_fullname,
                 'kh_fullname' => $this->kh_fullname,
                 'gender' => $this->gender,
@@ -196,6 +190,7 @@ class Studentform extends Component
     {
         $this->student_id = null;
         $this->isEdit = false;
+        $this->student_code = '00000';
 
         $this->en_first_name = $this->en_last_name = $this->en_fullname = null;
         $this->kh_first_name = $this->kh_last_name = $this->kh_fullname = null;

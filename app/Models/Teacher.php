@@ -9,7 +9,6 @@ class Teacher extends Model
     protected $table = 'teachers';
     protected $primaryKey = 'teacher_id';
     protected $fillable = [
-        'teacher_code',
         'en_fullname',
         'kh_fullname',
         'gender',

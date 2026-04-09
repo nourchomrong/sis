@@ -50,7 +50,7 @@
 
         @forelse($teachers as $teacher)
             <tr class="hover:bg-gray-50">
-                <td class="px-4 py-2">{{ str_pad($teacher->teacher_code, 5, '0', STR_PAD_LEFT) }}</td>
+                <td class="px-4 py-2">{{ str_pad($teacher->teacher_id, 5, '0', STR_PAD_LEFT) }}</td>
                 <td class="px-4 py-2">{{ $teacher->en_fullname }}</td>
                 <td class="px-4 py-2">{{ $teacher->kh_fullname }}</td>
                 <td class="px-4 py-2">{{ $teacher->gender }}</td>
@@ -118,7 +118,7 @@
                             </svg>
                         </div>
                     @endif
-                    <p><strong>Code:</strong> {{ str_pad($selectedTeacher->teacher_code, 5, '0', STR_PAD_LEFT) }}</p>
+                    <p><strong>Code:</strong> {{ str_pad($selectedTeacher->teacher_id, 5, '0', STR_PAD_LEFT) }}</p>
                     <p><strong>Name (EN):</strong> {{ $selectedTeacher->en_fullname }}</p>
                     <p><strong>Name (KH):</strong> {{ $selectedTeacher->kh_fullname }}</p>
                     <p><strong>Gender:</strong> {{ $selectedTeacher->gender }}</p>

@@ -41,7 +41,7 @@
     <x-table :headers="['Code', 'Name(En)', 'Name(KH)', 'Gender', 'Phone', 'Email', 'Detail', 'Actions']">
         @forelse($students as $student)
             <tr class="hover:bg-gray-50">
-                <td class="px-4 py-2">{{ str_pad($student->student_code, 5, '0', STR_PAD_LEFT) }}</td>
+                <td class="px-4 py-2">{{ str_pad($student->student_id, 5, '0', STR_PAD_LEFT) }}</td>
                 <td class="px-4 py-2">{{ $student->en_fullname }}</td>
                 <td class="px-4 py-2">{{ $student->kh_fullname }}</td>
                 <td class="px-4 py-2">{{ $student->gender }}</td>
@@ -108,7 +108,7 @@
                         </svg>
                     </div>
                 @endif
-                <p><strong>Code:</strong> {{ str_pad($selectedStudent->student_code, 5, '0', STR_PAD_LEFT) }}</p>
+                <p><strong>Code:</strong> {{ str_pad($selectedStudent->student_id, 5, '0', STR_PAD_LEFT) }}</p>
                 <p><strong>Name (EN):</strong> {{ $selectedStudent->en_fullname }}</p>
                 <p><strong>Name (KH):</strong> {{ $selectedStudent->kh_fullname }}</p>
                 <p><strong>Gender:</strong> {{ $selectedStudent->gender }}</p>

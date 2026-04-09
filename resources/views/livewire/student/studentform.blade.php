@@ -14,8 +14,8 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                                <x-form.input-text label="Student Code" name="student_code" type="number"
-                                    :value="$student_code" disabled="{{ $isEdit }}"  />
+                                <x-form.input-text label="Student Code" name="student_code" type="text"
+                                    :value="$student_id" disabled />
                                                                  <!-- English Name Group -->
                                     <div class="mb-4">
                                         <h3 class="font-semibold text-gray-700 mb-2">English Name</h3>

@@ -15,6 +15,7 @@ class Teacherform extends Component
     public $isSaving = false;
     public $showModal = true;
     public $teacher_id = null;
+    public $teacher_code = null;
     public $isEdit = false;
 
     // Name fields
@@ -23,9 +24,7 @@ class Teacherform extends Component
     public $en_fullname;
     public $kh_first_name;
     public $kh_last_name;
-
     public $kh_fullname;
-    public $teacher_code;
 
     public $gender;
     public $dateofbirth;
@@ -87,7 +86,7 @@ class Teacherform extends Component
 
         $this->teacher_id = $teacher->teacher_id;
 
-        $this->teacher_code = str_pad($teacher->teacher_code, 5, '0', STR_PAD_LEFT);
+        $this->teacher_code = str_pad($teacher->teacher_id, 5, '0', STR_PAD_LEFT);
 
         // Split full names into first + last
         $enNames = explode(' ', $teacher->en_fullname, 2);
@@ -150,7 +149,6 @@ class Teacherform extends Component
         if ($this->isEdit) {
             $teacher = Teacher::find($this->teacher_id);
             $teacher?->update([
-                'teacher_code' => $this->teacher_code,
                 'en_fullname' => $this->en_fullname,
                 'kh_fullname' => $this->kh_fullname,
                 'gender' => $this->gender,
@@ -161,11 +159,7 @@ class Teacherform extends Component
                 'email' => $this->email,
             ]);
         } else {
-            $nextId = DB::select("SHOW TABLE STATUS LIKE 'teachers'")[0]->Auto_increment;
-            $teacherCode = str_pad($nextId, 5, '0', STR_PAD_LEFT);
-
             $teacher = Teacher::create([
-                'teacher_code' => $teacherCode,
                 'en_fullname' => $this->en_fullname,
                 'kh_fullname' => $this->kh_fullname,
                 'gender' => $this->gender,
@@ -194,7 +188,7 @@ class Teacherform extends Component
     {
         $this->teacher_id = null;
         $this->isEdit = false;
-        $this->teacher_code = null;
+        $this->teacher_code = '00000';
 
         $this->en_first_name = $this->en_last_name = $this->en_fullname = null;
         $this->kh_first_name = $this->kh_last_name = $this->kh_fullname = null;
