@@ -37,6 +37,9 @@ return [
             'throw' => false,
             'report' => false,
         ],
+        'cloudinary' => [
+        'driver' => 'cloudinary',
+    ],
 
         'public' => [
             'driver' => 'local',
