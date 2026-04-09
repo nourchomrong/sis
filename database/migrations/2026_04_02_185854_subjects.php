@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id('subject_id'); 
             $table->string('subject_code')->unique();
             $table->string('subject_name');
-            $desc = 'Description of the subject';
-            $table->text('description')->nullable()->default($desc);
+            $table->text('description')->nullable();
             $table->char('status', 1)->default('A');
             $table->timestamps();
         });
