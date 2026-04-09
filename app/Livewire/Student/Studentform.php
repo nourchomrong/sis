@@ -148,7 +148,7 @@ class Studentform extends Component
         // handle photo upload
         $photoPath = null;
         if ($this->photo) {
-            $photoPath = $this->photo->storeOnCloudinary('students')->getPath();
+            $photoPath = $this->photo->store('photos', 'cloudinary');
         }
 
         if ($this->isEdit) {
