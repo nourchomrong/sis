@@ -105,7 +105,7 @@ class Subjectview extends Component
         $subjects = Subject::where('status', 'A')
             ->when($this->query, function ($q) {
                 $q->where('subject_name', 'like', "%{$this->query}%")
-                    ->orWhere('subject_code', 'like', "%{$this->query}%")
+                    ->orWhere('subject_id', 'like', "%{$this->query}%")
                     ->orWhere('description', 'like', "%{$this->query}%");
             })
             ->orderBy('created_at', 'desc')

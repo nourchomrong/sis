@@ -27,8 +27,4 @@
         </button>
     </div>
 </header>
-<<<<<<< HEAD
 </x-layouts.app>
-=======
-</x-layouts.app>
->>>>>>> 8dfa377 (your message)

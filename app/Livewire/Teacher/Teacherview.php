@@ -63,7 +63,7 @@ public function getTeachersProperty()
             $q->where(function ($sub) {
                 $sub->where('en_fullname', 'like', "%{$this->query}%")
                     ->orWhere('kh_fullname', 'like', "%{$this->query}%")
-                    ->orWhere('teacher_code', 'like', "%{$this->query}%")
+                    ->orWhere('teacher_id', 'like', "%{$this->query}%")
                     ->orWhere('phone', 'like', "%{$this->query}%");
             });
         })
