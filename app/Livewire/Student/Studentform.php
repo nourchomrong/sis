@@ -85,7 +85,6 @@ class Studentform extends Component
 
         if ($student) {
             $this->student_id = $student->student_id;
-            $this->student_code = str_pad($student->student_id, 5, '0', STR_PAD_LEFT);
 
             // Split names into first + last
             $enNames = explode(' ', $student->en_fullname, 2);
@@ -190,7 +189,6 @@ class Studentform extends Component
     {
         $this->student_id = null;
         $this->isEdit = false;
-        $this->student_code = '00000';
 
         $this->en_first_name = $this->en_last_name = $this->en_fullname = null;
         $this->kh_first_name = $this->kh_last_name = $this->kh_fullname = null;

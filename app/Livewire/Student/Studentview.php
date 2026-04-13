@@ -41,7 +41,7 @@ class Studentview extends Component
                 $q->where(function ($sub) {
                     $sub->where('en_fullname', 'like', "%{$this->query}%")
                         ->orWhere('kh_fullname', 'like', "%{$this->query}%")
-                        ->orWhere('student_code', 'like', "%{$this->query}%")
+                        ->orWhere('student_id', 'like', "%{$this->query}%")
                         ->orWhere('phone', 'like', "%{$this->query}%");
                 });
             })

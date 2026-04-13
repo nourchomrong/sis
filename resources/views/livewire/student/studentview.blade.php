@@ -97,17 +97,17 @@
             <div class="bg-white p-6 rounded shadow-lg w-full max-w-md">
 
                 <h2 class="text-xl font-bold mb-4">Student Detail</h2>
-                <p><strong>Profile Picture:</strong></p>
-                @if($selectedStudent->photo && $selectedStudent->photo->status === 'A')
-                    <img src="{{ asset('storage/' . $selectedStudent->photo->photo_path) }}"
-                        class="w-32 h-32 rounded object-cover mt-2 mb-4" alt="Student Photo">
-                @else
-                    <div class="w-32 h-32 rounded bg-gray-200 flex items-center justify-center mt-2 mb-4">
-                        <svg class="w-16 h-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                @endif
+                    <p><strong>Profile Picture:</strong></p>
+                    @if($selectedStudent->photo && $selectedStudent->photo->status === 'A')
+                        <img src="{{ asset('storage/' . $selectedStudent->photo->photo_path) }}"
+                            class="w-32 h-32 rounded object-cover mt-2 mb-4" alt="Student Photo">
+                    @else
+                        <div class="w-32 h-32 rounded bg-gray-200 flex items-center justify-center mt-2 mb-4">
+                            <svg class="w-16 h-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    @endif
                 <p><strong>Code:</strong> {{ str_pad($selectedStudent->student_id, 5, '0', STR_PAD_LEFT) }}</p>
                 <p><strong>Name (EN):</strong> {{ $selectedStudent->en_fullname }}</p>
                 <p><strong>Name (KH):</strong> {{ $selectedStudent->kh_fullname }}</p>
