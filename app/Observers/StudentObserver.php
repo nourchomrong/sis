@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\Student;
-use Livewire\Livewire;
 
 class StudentObserver
 {
@@ -12,7 +11,8 @@ class StudentObserver
      */
     public function created(Student $student): void
     {
-        Livewire::dispatch('refresh-students', ['message' => 'New student added']);
+        cache()->forget('students_updated');
+        cache()->put('students_updated', now(), now()->addSeconds(60));
     }
 
     /**
@@ -20,7 +20,8 @@ class StudentObserver
      */
     public function updated(Student $student): void
     {
-        Livewire::dispatch('refresh-students', ['message' => 'Student updated']);
+        cache()->forget('students_updated');
+        cache()->put('students_updated', now(), now()->addSeconds(60));
     }
 
     /**
@@ -28,6 +29,7 @@ class StudentObserver
      */
     public function deleted(Student $student): void
     {
-        Livewire::dispatch('refresh-students', ['message' => 'Student deleted']);
+        cache()->forget('students_updated');
+        cache()->put('students_updated', now(), now()->addSeconds(60));
     }
 }

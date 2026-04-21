@@ -3,22 +3,24 @@
 namespace App\Observers;
 
 use App\Models\Subject;
-use Livewire\Livewire;
 
 class SubjectObserver
 {
     public function created(Subject $subject): void
     {
-        Livewire::dispatch('refresh-subjects', ['message' => 'New subject added']);
+        cache()->forget('subjects_updated');
+        cache()->put('subjects_updated', now(), now()->addSeconds(60));
     }
 
     public function updated(Subject $subject): void
     {
-        Livewire::dispatch('refresh-subjects', ['message' => 'Subject updated']);
+        cache()->forget('subjects_updated');
+        cache()->put('subjects_updated', now(), now()->addSeconds(60));
     }
 
     public function deleted(Subject $subject): void
     {
-        Livewire::dispatch('refresh-subjects', ['message' => 'Subject deleted']);
+        cache()->forget('subjects_updated');
+        cache()->put('subjects_updated', now(), now()->addSeconds(60));
     }
 }

@@ -3,22 +3,24 @@
 namespace App\Observers;
 
 use App\Models\Classroom;
-use Livewire\Livewire;
 
 class ClassroomObserver
 {
     public function created(Classroom $classroom): void
     {
-        Livewire::dispatch('refresh-classrooms', ['message' => 'New classroom added']);
+        cache()->forget('classrooms_updated');
+        cache()->put('classrooms_updated', now(), now()->addSeconds(60));
     }
 
     public function updated(Classroom $classroom): void
     {
-        Livewire::dispatch('refresh-classrooms', ['message' => 'Classroom updated']);
+        cache()->forget('classrooms_updated');
+        cache()->put('classrooms_updated', now(), now()->addSeconds(60));
     }
 
     public function deleted(Classroom $classroom): void
     {
-        Livewire::dispatch('refresh-classrooms', ['message' => 'Classroom deleted']);
+        cache()->forget('classrooms_updated');
+        cache()->put('classrooms_updated', now(), now()->addSeconds(60));
     }
 }

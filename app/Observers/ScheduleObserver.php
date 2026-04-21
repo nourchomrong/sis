@@ -3,22 +3,24 @@
 namespace App\Observers;
 
 use App\Models\Schedule;
-use Livewire\Livewire;
 
 class ScheduleObserver
 {
     public function created(Schedule $schedule): void
     {
-        Livewire::dispatch('refresh-schedules', ['message' => 'New schedule added']);
+        cache()->forget('schedules_updated');
+        cache()->put('schedules_updated', now(), now()->addSeconds(60));
     }
 
     public function updated(Schedule $schedule): void
     {
-        Livewire::dispatch('refresh-schedules', ['message' => 'Schedule updated']);
+        cache()->forget('schedules_updated');
+        cache()->put('schedules_updated', now(), now()->addSeconds(60));
     }
 
     public function deleted(Schedule $schedule): void
     {
-        Livewire::dispatch('refresh-schedules', ['message' => 'Schedule deleted']);
+        cache()->forget('schedules_updated');
+        cache()->put('schedules_updated', now(), now()->addSeconds(60));
     }
 }

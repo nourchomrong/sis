@@ -3,22 +3,24 @@
 namespace App\Observers;
 
 use App\Models\Year;
-use Livewire\Livewire;
 
 class YearObserver
 {
     public function created(Year $year): void
     {
-        Livewire::dispatch('refresh-academic-years', ['message' => 'New academic year added']);
+        cache()->forget('years_updated');
+        cache()->put('years_updated', now(), now()->addSeconds(60));
     }
 
     public function updated(Year $year): void
     {
-        Livewire::dispatch('refresh-academic-years', ['message' => 'Academic year updated']);
+        cache()->forget('years_updated');
+        cache()->put('years_updated', now(), now()->addSeconds(60));
     }
 
     public function deleted(Year $year): void
     {
-        Livewire::dispatch('refresh-academic-years', ['message' => 'Academic year deleted']);
+        cache()->forget('years_updated');
+        cache()->put('years_updated', now(), now()->addSeconds(60));
     }
 }

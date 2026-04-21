@@ -3,22 +3,24 @@
 namespace App\Observers;
 
 use App\Models\Term;
-use Livewire\Livewire;
 
 class TermObserver
 {
     public function created(Term $term): void
     {
-        Livewire::dispatch('refresh-terms', ['message' => 'New term added']);
+        cache()->forget('terms_updated');
+        cache()->put('terms_updated', now(), now()->addSeconds(60));
     }
 
     public function updated(Term $term): void
     {
-        Livewire::dispatch('refresh-terms', ['message' => 'Term updated']);
+        cache()->forget('terms_updated');
+        cache()->put('terms_updated', now(), now()->addSeconds(60));
     }
 
     public function deleted(Term $term): void
     {
-        Livewire::dispatch('refresh-terms', ['message' => 'Term deleted']);
+        cache()->forget('terms_updated');
+        cache()->put('terms_updated', now(), now()->addSeconds(60));
     }
 }
