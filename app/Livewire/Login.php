@@ -20,33 +20,28 @@ class Login extends Component
     {
         return view('auth.login');
     }
+
+   
     public function login()
     {
-        $this->loginError = '';
-
+        // Validate input
         $this->validate([
-            'username' => 'required|string',
-            'password' => 'required|min:6',
+            'username' => 'required',
+            'password' => 'required',
         ]);
 
-        // Temporary local login
+        // Check against temporary credentials
         if ($this->username === $this->tempUser && $this->password === $this->tempPass) {
-            // Simulate login session
-            session(['user' => $this->tempUser]);
-            return redirect()->intended('/admin/dashboard');
+            // Simulate successful login
+            session()->flash('message', 'Login successful!');
+            return redirect()->route('dashboard');
+        } else {
+            // Set error message for invalid credentials
+            $this->loginError = 'Invalid username or password.';
         }
-
-        // Real database login
-        if (Auth::attempt([
-            'username' => $this->username,
-            'password' => $this->password
-        ])) {
-            session()->regenerate();
-            return redirect()->intended('/dashboard');
-        }
-
-        $this->loginError = 'Invalid username or password.';
     }
+
+
 
     public function render()
     {

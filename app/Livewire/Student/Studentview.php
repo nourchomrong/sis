@@ -5,6 +5,7 @@ namespace App\Livewire\Student;
 use Livewire\Component;
 use App\Models\Student;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 
 class Studentview extends Component
 {
@@ -27,6 +28,16 @@ class Studentview extends Component
         'studentCreated' => 'handleStudentCreated',
         'closeModal' => 'handleCloseModal',
     ];
+
+    /**
+     * Handle refresh event from model observer or polling
+     */
+    #[On('refresh-students')]
+    public function refreshStudents($data = [])
+    {
+        // Reset to first page and refresh the data
+        $this->resetPage();
+    }
 
         public function viewStudent($id)
         {
@@ -59,8 +70,8 @@ class Studentview extends Component
         $this->showStudentForm = false;
         $this->selectedStudentId = null;
         
-        
-        // Refresh by re-rendering with current page
+        // Refresh data when modal closes
+        $this->refreshStudents();
     }
 
 
@@ -118,3 +129,4 @@ class Studentview extends Component
         ]);
     }
 }
+

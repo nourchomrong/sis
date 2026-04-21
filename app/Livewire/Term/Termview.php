@@ -4,7 +4,7 @@ namespace App\Livewire\Term;
 
 use App\Models\Term;
 use Livewire\WithPagination;
-
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Termview extends Component
@@ -30,6 +30,16 @@ class Termview extends Component
     protected $queryString = [
         'query' => ['except' => ''],
     ];
+    
+    /**
+     * Handle refresh event from model observer
+     */
+    #[On('refresh-terms')]
+    public function refreshTerms($data = [])
+    {
+        $this->resetPage();
+    }
+    
     public function handleTermCreated($msg)
     {
         $this->message = $msg;

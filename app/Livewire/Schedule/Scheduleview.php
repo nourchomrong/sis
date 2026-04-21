@@ -5,6 +5,7 @@ namespace App\Livewire\Schedule;
 use Livewire\Component;
 use App\Models\Schedule;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 
 class Scheduleview extends Component
 {
@@ -29,6 +30,15 @@ class Scheduleview extends Component
     protected $queryString = [
         'query' => ['except' => ''],
     ];
+
+    /**
+     * Handle refresh event from model observer
+     */
+    #[On('refresh-schedules')]
+    public function refreshSchedules($data = [])
+    {
+        $this->resetPage();
+    }
 
     public function handleScheduleCreated($msg)
     {

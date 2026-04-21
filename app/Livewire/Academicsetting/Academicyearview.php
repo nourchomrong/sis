@@ -5,6 +5,8 @@ namespace App\Livewire\Academicsetting;
 use Livewire\Component;
 use App\Models\Year;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
+
 class Academicyearview extends Component
 {
     use WithPagination;
@@ -23,6 +25,15 @@ class Academicyearview extends Component
         'academicyear-created' => 'handleAcademicYearCreated',
         'closeModal' => 'handleCloseModal',
     ];
+
+    /**
+     * Handle refresh event from model observer
+     */
+    #[On('refresh-academic-years')]
+    public function refreshAcademicYears($data = [])
+    {
+        $this->resetPage();
+    }
 
     public function viewAcademicYear($id)
     {

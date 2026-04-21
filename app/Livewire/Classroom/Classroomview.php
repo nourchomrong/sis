@@ -5,6 +5,7 @@ namespace App\Livewire\Classroom;
 use Livewire\Component;
 use App\Models\Classroom;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 
 class Classroomview extends Component
 {
@@ -24,6 +25,15 @@ class Classroomview extends Component
         'classroomCreated' => 'handleClassroomCreated',
         'closeModal' => 'handleCloseModal',
     ];
+
+    /**
+     * Handle refresh event from model observer
+     */
+    #[On('refresh-classrooms')]
+    public function refreshClassrooms($data = [])
+    {
+        $this->resetPage();
+    }
 
     public function viewClassroom($id)
     {

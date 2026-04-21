@@ -4,6 +4,7 @@ namespace App\Livewire\Subject;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 use App\Models\Subject;
 
 class Subjectview extends Component
@@ -26,6 +27,15 @@ class Subjectview extends Component
         'subjectCreated' => 'handleSubjectCreated',
         'closeModal' => 'handleCloseModal',
     ];
+
+    /**
+     * Handle refresh event from model observer
+     */
+    #[On('refresh-subjects')]
+    public function refreshSubjects($data = [])
+    {
+        $this->resetPage();
+    }
 
     public function updatedQuery()
     {

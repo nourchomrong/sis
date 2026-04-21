@@ -1,4 +1,16 @@
 <div class="relative">
+    <!-- Real-time polling script -->
+    <script>
+        (function() {
+            // Poll for changes every 3 seconds
+            setInterval(() => {
+                // This triggers Livewire to refresh the component
+                if (window.Livewire && Livewire.find) {
+                    Livewire.dispatch('refresh-classes');
+                }
+            }, 3000);
+        })();
+    </script>
 
     <!-- ✅ Toast -->
     <div x-data="{ show: false, message: '', timeout: null }" x-cloak

@@ -23,6 +23,23 @@
             <span x-text="message"></span>
         </div>
     </div>
+
+    <!-- Real-time polling script -->
+    <script>
+        (function() {
+            let lastCheckTime = Date.now();
+            
+            // Poll for changes every 3 seconds
+            setInterval(() => {
+                // This triggers Livewire to refresh the component
+                if (window.Livewire && Livewire.find) {
+                    // Dispatch refresh to all student view components
+                    Livewire.dispatch('refresh-students');
+                }
+            }, 3000);
+        })();
+    </script>
+
     <x-form.search label="Search Student" name="query" placeholder="Type to search..." />
     <!-- Header + Add button -->
     <div class="flex justify-end items-center mb-4">

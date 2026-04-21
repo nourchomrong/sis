@@ -5,6 +5,7 @@ namespace App\Livewire\Classes;
 use Livewire\Component;
 use App\Models\Classes;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 use App\Models\Schedule;
 
 class Classesview extends Component
@@ -41,6 +42,16 @@ class Classesview extends Component
     'start_date' => 'date',
     'end_date' => 'date',
 ];
+
+    /**
+     * Handle refresh event from model observer
+     */
+    #[On('refresh-classes')]
+    public function refreshClasses($data = [])
+    {
+        $this->resetPage();
+    }
+
     public function viewClassroom($id)
     {
         $this->selectedClasses = Classes::find($id);

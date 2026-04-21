@@ -4,6 +4,7 @@ namespace App\Livewire\Teacher;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 use App\Models\Teacher;
 
 class Teacherview extends Component
@@ -32,6 +33,15 @@ class Teacherview extends Component
     protected $queryString = [
         'query' => ['except' => ''],
     ];
+
+    /**
+     * Handle refresh event from model observer
+     */
+    #[On('refresh-teachers')]
+    public function refreshTeachers($data = [])
+    {
+        $this->resetPage();
+    }
 
     public function handleTeacherCreated($msg)
     {
