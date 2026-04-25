@@ -3,12 +3,20 @@
 namespace App\Services;
 
 use App\Models\Photo;
+use App\Services\Setting;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
 
 class PhotoService
 {
+    protected Setting $setting;
+
+    public function __construct(Setting $setting)
+    {
+        $this->setting = $setting;
+    }
+
     /**
      * Upload and store a photo for a given owner model.
      *
@@ -16,17 +24,22 @@ class PhotoService
      * @param Model $owner
      * @return Photo
      */
-    public function uploadPhoto(UploadedFile $file, Model $owner): Photo
+    public function uploadPhoto(UploadedFile $file, Model $owner, ?string $key = null): Photo
     {
+        // Determine key (allow callers to override) and then disk/path from settings
+        $key = $key ?? $this->detectKeyFromOwner($owner);
+        $disk = $this->setting->diskFor($key);
+        $dir = $this->setting->pathFor($key);
+
         // Store the file
-        $path = $file->store('photos', 'public');
+        $path = $file->store($dir, $disk);
 
         // Check if owner already has a photo
         $existingPhoto = $owner->photo;
 
         if ($existingPhoto) {
             // Delete old file
-            Storage::disk('public')->delete($existingPhoto->photo_path);
+            Storage::disk($disk)->delete($existingPhoto->photo_path);
             // Update existing photo record
             $existingPhoto->update([
                 'photo_path' => $path,
@@ -54,7 +67,9 @@ class PhotoService
 
         if ($photo) {
             // Delete the file
-            Storage::disk('public')->delete($photo->photo_path);
+            $key = $this->detectKeyFromOwner($owner);
+            $disk = $this->setting->diskFor($key);
+            Storage::disk($disk)->delete($photo->photo_path);
             // Delete the record
             $photo->delete();
             return true;
@@ -74,7 +89,9 @@ class PhotoService
         $photo = $owner->photo;
 
         if ($photo && $photo->status === 'A') {
-            return Storage::disk('public')->url($photo->photo_path);
+            $key = $this->detectKeyFromOwner($owner);
+            $disk = $this->setting->diskFor($key);
+            return Storage::disk($disk)->url($photo->photo_path);
         }
 
         return null;
@@ -89,5 +106,19 @@ class PhotoService
     public function hasPhoto(Model $owner): bool
     {
         return $owner->photo && $owner->photo->status === 'A';
+    }
+
+    protected function detectKeyFromOwner(Model $owner): string
+    {
+        $class = class_basename($owner);
+
+        switch (strtolower($class)) {
+            case 'student':
+                return 'student';
+            case 'teacher':
+                return 'teacher';
+            default:
+                return 'photo';
+        }
     }
 }

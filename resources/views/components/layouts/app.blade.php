@@ -6,7 +6,7 @@
 
        <title>{{ $title ? $title . ' | Student Information ' : 'Student Information' }}</title>
 
-  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="icon" type="image/png" href="{{ app(\App\Services\Setting::class)->logoUrl() }}">
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script src='js/auth/login_animate.js'></script>

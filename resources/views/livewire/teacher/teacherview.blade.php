@@ -121,7 +121,7 @@
                     <h2 class="text-xl font-bold mb-4">Teacher Detail</h2>
                     <p><strong>Profile Picture:</strong></p>
                     @if($selectedTeacher->photo && $selectedTeacher->photo->status === 'A')
-                        <img src="{{ asset('storage/' . $selectedTeacher->photo->photo_path) }}"
+                        <img src="{{ app(\App\Services\Setting::class)->urlForOwner($selectedTeacher) }}"
                             class="w-32 h-32 rounded object-cover mt-2 mb-4" alt="Teacher Photo">
                     @else
                         <div class="w-32 h-32 rounded bg-gray-200 flex items-center justify-center mt-2 mb-4">

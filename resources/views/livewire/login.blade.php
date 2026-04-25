@@ -5,7 +5,7 @@
 
         <!-- Logo -->
         <div class="flex flex-col items-center">
-            <img src="{{ asset('assets/images/logo.png') }}" style="width:200px">
+            <img src="{{ app(\App\Services\Setting::class)->logoUrl() }}" style="width:200px">
         </div>
 
         <!-- Title -->
@@ -64,7 +64,7 @@
     <!-- Right Side Image -->
     <div class="flex-1 hidden lg:flex bg-indigo-100 justify-center items-center lg:rounded-r-lg">
         <div class="w-full h-full bg-cover bg-center"
-            style="background-image:url('{{ asset('assets/images/school.jpg') }}')"></div>
+            style="background-image:url('{{ app(\App\Services\Setting::class)->urlForPath('image', 'school.jpg') }}')"></div>
     </div>
 
 </div>

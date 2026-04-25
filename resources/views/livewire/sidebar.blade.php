@@ -19,7 +19,7 @@
 
             <!-- Logo -->
             <a href="#" class="flex items-center mb-5">
-                <img src="{{ asset('assets/images/logo.png') }}" class="h-6 mr-3"/>
+                <img src="{{ app(\App\Services\Setting::class)->logoUrl() }}" class="h-6 mr-3"/>
                 <span class="sidebar-text text-lg font-semibold text-white">Student Info System</span>
             </a>
 
