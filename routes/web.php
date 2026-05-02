@@ -41,3 +41,8 @@ Route::get('admin/subjects', function () {
 Route::get('admin/terms', function () {
     return view('admin.term.termview');
 })->name('terms');
+
+
+Route::get('welcome', function () {
+    return view('pages.student.main');
+});

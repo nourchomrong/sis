@@ -16,7 +16,7 @@
 
         @livewireStyles
     </head>
-<body class="min-h-screen bg-gray-100 p-6">
+    <body class="min-h-screen bg-gray-100"> 
         @if($showLoader ?? false)
             <x-loading />
         @endif
