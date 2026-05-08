@@ -11,35 +11,56 @@ class Login extends Component
     public $username = '';
     public $password = '';
     public $loginError = '';
-
-    // Temporary local credentials
-    private $tempUser = 'testuser';
-    private $tempPass = 'password123';
-
     public function index()
     {
         return view('auth.login');
     }
 
    
-    public function login()
-    {
-        // Validate input
-        $this->validate([
-            'username' => 'required',
-            'password' => 'required',
+public function login()
+{
+    $this->validate([
+        'username' => 'required',
+        'password' => 'required',
+    ]);
+
+    $credentials = [
+        'username' => $this->username,
+        'password' => $this->password,
+    ];
+
+    if (Auth::attempt($credentials)) {
+
+        session()->regenerate();
+
+        // update last login
+        auth()->user()->update([
+            'last_login' => now()
         ]);
 
-        // Check against temporary credentials
-        if ($this->username === $this->tempUser && $this->password === $this->tempPass) {
-            // Simulate successful login
-            session()->flash('message', 'Login successful!');
-            return redirect()->route('dashboard');
-        } else {
-            // Set error message for invalid credentials
-            $this->loginError = 'Invalid username or password.';
+        // get role
+        $role = auth()->user()->role->role_type;
+
+        // redirect by role
+        if ($role == 'admin') {
+
+            return redirect()->route('admin.dashboard');
+
+        } elseif ($role == 'teacher') {
+
+                return redirect()->route('teachers.dashboard');
+
+        } elseif ($role == 'student') {
+
+            return redirect()->route('student.main');
         }
+
+        // fallback
+        return redirect('/');
     }
+
+    $this->loginError = 'Invalid username or password.';
+}
 
 
 

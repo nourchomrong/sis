@@ -17,6 +17,10 @@
                 <div class="hidden md:flex items-center">
                     <livewire:pages.student.menu />
                 </div>
+                    <a href="{{ route('logout') }}"
+                        class="bg-red-500 text-white hover:bg-red-600 px-4 py-2 mb-4 inline-block rounded-full">
+                        Logout
+                    </a>
 
             </div>
         </div>

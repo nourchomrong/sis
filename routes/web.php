@@ -1,48 +1,51 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Livewire\Login;
 
 
 Route::get('/', [Login::class, 'index'])->name('login');
 
-Route::get('admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('dashboard');
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/dashboard', fn () => view('admin.dashboard'))
+        ->name('admin.dashboard');
 
-Route::get('admin/students', function () {
-    return view('admin.student.studentview');
-})->name('students');
+    Route::get('/students', fn () => view('admin.student.studentview'))
+        ->name('admin.students');
 
-Route::get('admin/teachers', function () {
-    return view('admin.teacher.teacherview');
-})->name('teachers');
+    Route::get('/teachers', fn () => view('admin.teacher.teacherview'))
+        ->name('admin.teachers');
 
-Route::get('admin/classrooms', function () {
-    return view('admin.classroom.classroomview');
-})->name('classroom');
+    Route::get('/classrooms', fn () => view('admin.classroom.classroomview'))
+        ->name('admin.classrooms');
 
-Route::get('admin/classes', function () {
-    return view('admin.classes.classesview');
-})->name('classes');
+    Route::get('/classes', fn () => view('admin.classes.classesview'))
+        ->name('admin.classes');
 
-Route::get('admin/academicyears', function () {
-    return view('admin.academicsettings.academicyearview');
-})->name('academicyears');
+    Route::get('/academicyears', fn () => view('admin.academicsettings.academicyearview'))
+        ->name('admin.academicyears');
 
-Route::get('admin/schedules', function () {
-    return view('admin.schedule.scheduleview');
-})->name('schedules');
+    Route::get('/schedules', fn () => view('admin.schedule.scheduleview'))
+        ->name('admin.schedules');
 
-Route::get('admin/subjects', function () {
-    return view('admin.subject.subjectview');
-})->name('subjects');
+    Route::get('/subjects', fn () => view('admin.subject.subjectview'))
+        ->name('admin.subjects');
 
-Route::get('admin/terms', function () {
-    return view('admin.term.termview');
-})->name('terms');
-
-
-Route::get('welcome', function () {
-    return view('pages.student.main');
+    Route::get('/terms', fn () => view('admin.term.termview'))
+        ->name('admin.terms');
 });
+
+Route::prefix('student')->middleware(['auth', 'role:student'])->group(function () {
+
+    Route::get('/welcome', fn () => view('pages.student.main'))
+        ->name('student.main');
+});
+
+Route::get('/logout', function () {
+    Auth::logout();
+    session()->invalidate();
+    session()->regenerateToken();
+    return redirect()->route('login');
+})->name('logout');
+

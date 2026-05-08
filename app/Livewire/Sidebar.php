@@ -22,7 +22,7 @@ class Sidebar extends Component
     public $menuItems = [
         [
             'title' => 'Dashboard',
-            'route' => 'dashboard',
+            'route' => 'admin.dashboard',
             'icon' => 'svg/dashboard.svg',
         ],
         [
@@ -32,12 +32,12 @@ class Sidebar extends Component
             'children' => [
                 [
                     'title' => 'Users Accounts',
-                    'route' => 'users',
+                    'route' => 'admin.users',
                     'icon' => 'svg/user.svg',
                 ],
                 [
                     'title' => 'Activity Logs',
-                    'route' => 'activitylogs',
+                    'route' => 'admin.activitylogs',
                     'icon' => 'svg/audit.svg',
                 ],
             ]
@@ -49,12 +49,12 @@ class Sidebar extends Component
             'children' => [
                 [
                     'title' => 'Students Records',
-                    'route' => 'students',
+                    'route' => 'admin.students',
                     'icon' => 'svg/student.svg',
                 ],
                 [
                     'title' => 'Teachers Records',
-                    'route' => 'teachers',
+                    'route' => 'admin.teachers',
                     'icon' => 'svg/teacher.svg',
                 ],
             ]
@@ -66,17 +66,17 @@ class Sidebar extends Component
             'children' => [
                 [
                     'title' => 'Classrooms',
-                    'route' => 'classrooms',
+                    'route' => 'admin.classrooms',
                     'icon' => 'svg/classroom.svg',
                 ],
                 [
                     'title' => 'Classes',
-                    'route' => 'classes',
+                    'route' => 'admin.classes',
                     'icon' => 'svg/class.svg',
                 ],
                                 [
                     'title' => 'Schedules',
-                    'route' => 'schedules',
+                    'route' => 'admin.schedules',
                     'icon' => 'svg/schedule.svg',
                 ],
             ]
@@ -88,17 +88,17 @@ class Sidebar extends Component
             'children' => [
                 [
                     'title' => 'AcademicYears',
-                    'route' => 'academicyears',
+                    'route' => 'admin.academicyears',
                     'icon' => 'svg/year.svg',
                 ],
                 [
                     'title' => 'Subjects',
-                    'route' => 'subjects',
+                    'route' => 'admin.subjects',
                     'icon' => 'svg/subject.svg',
                 ],
                 [
                     'title' => 'Terms',
-                    'route' => 'terms',
+                    'route' => 'admin.terms',
                     'icon' => 'svg/term.svg',
                 ],
             ]
