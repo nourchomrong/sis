@@ -32,12 +32,12 @@ class Sidebar extends Component
             'children' => [
                 [
                     'title' => 'Users Accounts',
-                    'route' => 'admin.users',
+                    'route' => 'users',
                     'icon' => 'svg/user.svg',
                 ],
                 [
                     'title' => 'Activity Logs',
-                    'route' => 'admin.activitylogs',
+                    'route' => 'activitylogs',
                     'icon' => 'svg/audit.svg',
                 ],
             ]
@@ -49,12 +49,12 @@ class Sidebar extends Component
             'children' => [
                 [
                     'title' => 'Students Records',
-                    'route' => 'admin.students',
+                    'route' => 'students',
                     'icon' => 'svg/student.svg',
                 ],
                 [
                     'title' => 'Teachers Records',
-                    'route' => 'admin.teachers',
+                    'route' => 'teachers',
                     'icon' => 'svg/teacher.svg',
                 ],
             ]
@@ -66,17 +66,17 @@ class Sidebar extends Component
             'children' => [
                 [
                     'title' => 'Classrooms',
-                    'route' => 'admin.classrooms',
+                    'route' => 'classrooms',
                     'icon' => 'svg/classroom.svg',
                 ],
                 [
                     'title' => 'Classes',
-                    'route' => 'admin.classes',
+                    'route' => 'classes',
                     'icon' => 'svg/class.svg',
                 ],
                                 [
                     'title' => 'Schedules',
-                    'route' => 'admin.schedules',
+                    'route' => 'schedules',
                     'icon' => 'svg/schedule.svg',
                 ],
             ]
@@ -88,17 +88,17 @@ class Sidebar extends Component
             'children' => [
                 [
                     'title' => 'AcademicYears',
-                    'route' => 'admin.academicyears',
+                    'route' => 'academicyears',
                     'icon' => 'svg/year.svg',
                 ],
                 [
                     'title' => 'Subjects',
-                    'route' => 'admin.subjects',
+                    'route' => 'subjects',
                     'icon' => 'svg/subject.svg',
                 ],
                 [
                     'title' => 'Terms',
-                    'route' => 'admin.terms',
+                    'route' => 'terms',
                     'icon' => 'svg/term.svg',
                 ],
             ]

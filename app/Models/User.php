@@ -17,7 +17,8 @@ class User extends Authenticatable
         'password',
         'role_id',
         'status',
-        'owner_id'
+        'owner_id',
+        'owner_type'
     ];
 
     protected $hidden = [
@@ -29,4 +30,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class, 'role_id', 'role_id');
     }
+        public function owner()
+        {
+            return $this->morphTo();
+        }
+        
 }

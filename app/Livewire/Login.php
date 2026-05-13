@@ -52,7 +52,7 @@ public function login()
 
         } elseif ($role == 'student') {
 
-            return redirect()->route('student.main');
+            return redirect()->route('students');
         }
 
         // fallback

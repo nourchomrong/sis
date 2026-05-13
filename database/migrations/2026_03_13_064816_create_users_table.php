@@ -6,10 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-  public function up(): void
+    public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id('user_id');
@@ -22,7 +19,9 @@ return new class extends Migration
 
             $table->timestamp('last_login')->nullable();
             $table->char('status', 1)->nullable();
+
             $table->unsignedBigInteger('owner_id')->nullable();
+            $table->string('owner_type')->nullable();
 
             $table->timestamps();
         });

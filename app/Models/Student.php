@@ -24,4 +24,8 @@ public function photo()
 {
     return $this->morphOne(Photo::class, 'owner');
 }
+public function user()
+{
+    return $this->morphOne(User::class, 'owner');
+}
 }

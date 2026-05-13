@@ -36,10 +36,10 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
         ->name('admin.terms');
 });
 
-Route::prefix('student')->middleware(['auth', 'role:student'])->group(function () {
+Route::prefix('students')->middleware(['auth', 'role:student'])->group(function () {
 
     Route::get('/welcome', fn () => view('pages.student.main'))
-        ->name('student.main');
+        ->name('students');
 });
 
 Route::get('/logout', function () {
